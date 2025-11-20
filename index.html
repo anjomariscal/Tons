@@ -382,6 +382,28 @@ async function processImage() {
         // ?? Remove fundo de verdade (IA)
         const finalCanvas = await removeBackgroundWithAI(img, noseColor);
 
+		// Adicionar legenda com o código da cor
+		const label = noseColor;   // usa o código detectado
+		const padding = 20;        // margem interna
+		ctx.font = "40px Arial";
+		ctx.textBaseline = "bottom";
+
+		const textWidth = ctx.measureText(label).width;
+		const textHeight = 40;
+
+		// Fundo preto da legenda
+		ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+		ctx.fillRect(
+		    20, 
+		    resultPreview.height - textHeight - padding, 
+    		textWidth + padding * 2, 
+    		textHeight + padding / 2
+		);
+
+		// Texto em branco
+		ctx.fillStyle = "white";
+		ctx.fillText(label, 20 + padding, resultPreview.height - padding);
+
         // Gera o dataURL só quando o canvas está pronto
         const finalDataUrl = finalCanvas.toDataURL("image/png");
 
