@@ -303,7 +303,8 @@ CONFIGURAÇÃO DO GITHUB
 const GH_USER = "anjomariscal";
 const GH_REPO = "Tons";
 const GH_PATH = "uploads"; // pasta onde os arquivos ficarão
-const GH_TOKEN = "Aslan19Mariscal"; // <-- substitua com seu token
+const GH_BRANCH = "main";
+const GH_TOKEN = "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"; // <-- substitua com seu token
 
 /* -----------------------------------------------
    SISTEMA DE REMOÇÃO DE FUNDO COM IA (MEDIAPIPE)
@@ -544,6 +545,39 @@ async function uploadToGitHub() {
     const payload = {
         message: "Upload automático do app Tons",
         content: base64
+    };
+
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${GH_TOKEN}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+        alert("Imagem enviada com sucesso ao GitHub!");
+    } else {
+        const error = await response.json();
+        console.error(error);
+        alert("Erro ao enviar: " + error.message);
+    }
+}/* ------------------ 
+ENVIAR PARA GITHUB 
+------------------- */
+async function uploadToGitHub() {
+    if (!processedImageData) return alert("Tire uma foto primeiro.");
+
+    const base64 = processedImageData.split(",")[1];
+    const fileName = "foto_" + Date.now() + ".png";
+
+    const url = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${GH_PATH}/${fileName}`;
+
+    const payload = {
+        message: "Upload automático do app Tons",
+        content: base64,
+        branch: GH_BRANCH
     };
 
     const response = await fetch(url, {
