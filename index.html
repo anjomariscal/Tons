@@ -298,13 +298,15 @@
 <script>
 /* -----------------------------------------------
 CONFIGURAÇÃO DO GITHUB
--------------------------------------------------*/
+-------------------------------------------------
 
 const GH_USER = "anjomariscal";
 const GH_REPO = "Tons";
 const GH_PATH = "uploads"; // pasta onde os arquivos ficarão
 const GH_BRANCH = "main";
 const GH_TOKEN = "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"; // <-- substitua com seu token
+
+*/
 
 /* -----------------------------------------------
    SISTEMA DE REMOÇÃO DE FUNDO COM IA (MEDIAPIPE)
@@ -531,7 +533,7 @@ function showResult(dataUrl) {
 
 /* ------------------ 
 ENVIAR PARA GITHUB 
-------------------- */
+------------------- 
 async function uploadToGitHub() {
     if (!processedImageData) return alert("Tire uma foto primeiro.");
 
@@ -563,6 +565,43 @@ async function uploadToGitHub() {
         alert("Erro ao enviar: " + error.message);
     }
 }
+*/
+
+async function uploadToGitHub() {
+    if (!processedImageData) return alert("Tire uma foto primeiro.");
+
+    const fileBase64 = processedImageData.split(",")[1];
+    const fileName = "foto_" + Date.now() + ".png";
+
+    // 🔗 SUA URL DO WORKER AQUI
+    const workerUrl = "https://tons-upload.jamps-fernandes.workers.dev/";
+
+    try {
+        const response = await fetch(workerUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fileContent: fileBase64,
+                fileName: fileName
+            })
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            console.error("Erro do Worker:", text);
+            alert("Erro ao enviar: " + text);
+            return;
+        }
+
+        alert("Imagem enviada com sucesso ao GitHub!");
+
+    } catch (error) {
+        console.error(error);
+        alert("Falha ao conectar ao servidor.");
+    }
+}
+
+
 /* -------------------------------
    BAIXAR IMAGEM
 ---------------------------------*/
