@@ -370,18 +370,6 @@ async function processImage() {
 
         ctx.drawImage(img, 0, 0);
 
-        // Pegar cor do nariz (centro da imagem)
-        const centerX = Math.floor(canvas.width / 2);
-        const centerY = Math.floor(canvas.height / 2);
-        const pixel = ctx.getImageData(centerX, centerY, 1, 1).data;
-
-        noseColor = rgbToHex(pixel[0], pixel[1], pixel[2]);
-        colorSample.style.backgroundColor = noseColor;
-        colorCode.textContent = noseColor;
-
-        // ?? Remove fundo de verdade (IA)
-        const finalCanvas = await removeBackgroundWithAI(img, noseColor);
-
 		// Adicionar legenda com o código da cor
 		const label = noseColor;   // usa o código detectado
 		const padding = 20;        // margem interna
@@ -403,8 +391,20 @@ async function processImage() {
 		// Texto em branco
 		ctx.fillStyle = "white";
 		ctx.fillText(label, 20 + padding, resultPreview.height - padding);
+		
+        // Pegar cor do nariz (centro da imagem)
+        const centerX = Math.floor(canvas.width / 2);
+        const centerY = Math.floor(canvas.height / 2);
+        const pixel = ctx.getImageData(centerX, centerY, 1, 1).data;
 
-        // Gera o dataURL só quando o canvas está pronto
+        noseColor = rgbToHex(pixel[0], pixel[1], pixel[2]);
+        colorSample.style.backgroundColor = noseColor;
+        colorCode.textContent = noseColor;
+
+        // ?? Remove fundo de verdade (IA)
+        const finalCanvas = await removeBackgroundWithAI(img, noseColor);
+
+		// Gera o dataURL só quando o canvas está pronto
         const finalDataUrl = finalCanvas.toDataURL("image/png");
 
         processedImageData = finalDataUrl;
