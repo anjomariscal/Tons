@@ -319,13 +319,12 @@ const loading = document.getElementById("loading");
 async function startCamera() {
     try {
         stream = await navigator.mediaDevices.getUserMedia({
-            video: {
+            video: { 
 				facingMode: "user",
 				width: { ideal: 720 },
 				height: { ideal: 720 },
-				aspectRatio: 1
-			} }
-        });
+				aspectRatio: 1 }
+		});
 
         cameraPreview.srcObject = stream;
         cameraPreview.style.display = "block";
@@ -370,7 +369,7 @@ async function processImage() {
 
         ctx.drawImage(img, 0, 0);
 
-		// Pegar cor do nariz (centro da imagem)
+        // Pegar cor do nariz (centro da imagem)
         const centerX = Math.floor(canvas.width / 2);
         const centerY = Math.floor(canvas.height / 2);
         const pixel = ctx.getImageData(centerX, centerY, 1, 1).data;
@@ -382,7 +381,7 @@ async function processImage() {
         // ?? Remove fundo de verdade (IA)
         const finalCanvas = await removeBackgroundWithAI(img, noseColor);
 
-		// Gera o dataURL só quando o canvas está pronto
+        // Gera o dataURL só quando o canvas está pronto
         const finalDataUrl = finalCanvas.toDataURL("image/png");
 
         processedImageData = finalDataUrl;
