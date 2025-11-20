@@ -370,29 +370,7 @@ async function processImage() {
 
         ctx.drawImage(img, 0, 0);
 
-		// Adicionar legenda com o código da cor
-		const label = noseColor;   // usa o código detectado
-		const padding = 20;        // margem interna
-		ctx.font = "40px Arial";
-		ctx.textBaseline = "bottom";
-
-		const textWidth = ctx.measureText(label).width;
-		const textHeight = 40;
-
-		// Fundo preto da legenda
-		ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-		ctx.fillRect(
-		    20, 
-		    resultPreview.height - textHeight - padding, 
-    		textWidth + padding * 2, 
-    		textHeight + padding / 2
-		);
-
-		// Texto em branco
-		ctx.fillStyle = "white";
-		ctx.fillText(label, 20 + padding, resultPreview.height - padding);
-		
-        // Pegar cor do nariz (centro da imagem)
+		// Pegar cor do nariz (centro da imagem)
         const centerX = Math.floor(canvas.width / 2);
         const centerY = Math.floor(canvas.height / 2);
         const pixel = ctx.getImageData(centerX, centerY, 1, 1).data;
