@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartela de Cores – Tons</title>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+body,h1 {font-family: "Montserrat", sans-serif}
+img {margin-bottom: -7px}
+.w3-row-padding img {margin-bottom: 12px}
+
+a.back {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+}
+
+.w3-third img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Back button -->
+<a class="back w3-button w3-black w3-margin" href="index.html"><i class="fa fa-arrow-left"></i> Voltar</a>
+
+<!-- Page Content -->
+<div class="w3-content" style="max-width:1500px">
+
+  <header class="w3-center w3-margin-bottom">
+    <h1>UME Esmeraldo Tarquínio em Tons</h1>
+    <p class="w3-padding-16">Participe! Vamos celebrar nossa diversidade.</p>
+  </header>
+
+  <!-- Photo Grid -->
+  <div class="w3-row" id="photoGrid" style="margin-bottom:128px">
+    <!-- As imagens do GitHub serão inseridas aqui via JS -->
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge"> 
+	<p class="w3-medium">Projeto "Cor de quem?</p>
+    <p class="w3-medium">Biblioteca Escolar — UME Prefeito Esmeraldo Tarquínio</p>
+ 
+</footer>
+
+<script>
+// Config GitHub
+const user = "anjomariscal";
+const repo = "Tons";
+const path = "uploads";
+
+// Função para embaralhar array
+function shuffleArray(array) {
+  for (let i = array.length -1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Carrega imagens do GitHub e insere no grid
+async function loadImages() {
+    const url = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+    try {
+        const response = await fetch(url);
+        const files = await response.json();
+
+        // Filtra apenas imagens
+        const images = files
+            .filter(file => file.type === "file" && (file.name.endsWith(".png") || file.name.endsWith(".jpg")))
+            .map(file => file.download_url);
+
+        // Embaralha
+        const shuffled = shuffleArray(images);
+
+        const grid = document.getElementById("photoGrid");
+        grid.innerHTML = "";
+
+        // Distribui em 3 colunas W3.CSS
+        const colCount = 3;
+        const cols = [];
+        for(let i=0;i<colCount;i++){ 
+            const div = document.createElement("div");
+            div.className = "w3-third";
+            cols.push(div);
+            grid.appendChild(div);
+        }
+
+        shuffled.forEach((src, index) => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = "imagem";
+            cols[index % colCount].appendChild(img);
+        });
+
+    } catch(err) {
+        console.error(err);
+        alert("Erro ao carregar imagens da cartela.");
+    }
+}
+
+loadImages();
+</script>
+
+</body>
+</html>
