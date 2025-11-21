@@ -1,131 +1,145 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cartela de Cores – Tons</title>
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<style>
-body,h1 {font-family: "Montserrat", sans-serif}
-img {margin-bottom: -7px}
-.w3-row-padding img {margin-bottom: 12px}
-
-a.back {
-    display: inline-block;
-    margin: 20px auto;
-    padding: 12px 20px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 20px;
-    color: white;
-    text-decoration: none;
-    backdrop-filter: blur(8px);
-}
-
-.w3-third img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-#photoGrid {
-	    width: 20%;
-}
-	
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartela de Cores – Tons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333; line-height: 1.6;
+            padding: 20px; min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header {
+            text-align: center; margin-bottom: 40px; padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 { color: #de28b6; margin-bottom: 10px; font-size: 2.5rem; }
+        .subtitle { color: #7f8c8d; font-size: 1.2rem; max-width: 800px; margin: 0 auto; }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            margin-bottom: 40px;
+        }
+        .photo-item { height: 200px; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        footer {
+            text-align: center; padding: 20px; margin-top: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 25px; background: #2c3e50; color: white;
+            text-decoration: none; border-radius: 30px; font-weight: 600;
+            transition: all 0.3s ease; margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .back-btn:hover { background: #34495e; transform: translateY(-2px); }
+        @media (max-width: 768px) {
+            .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .photo-item { height: 150px; }
+            h1 { font-size: 2rem; }
+        }
+        @media (max-width: 480px) {
+            .photo-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+            .photo-item { height: 120px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- Back button -->
-<a class="back w3-button w3-black w3-margin" href="index.html"><i class="fa fa-arrow-left"></i> Voltar</a>
-
-<!-- Page Content -->
-<div class="w3-content" style="max-width:1500px">
-
-  <header class="w3-center w3-margin-bottom">
-    <h1>UME Esmeraldo Tarquínio em Tons</h1>
-    <p class="w3-padding-16">Participe! Vamos celebrar nossa diversidade.</p>
-  </header>
-
-  <!-- Photo Grid -->
-  <div class="w3-row" id="photoGrid" style="margin-bottom:12px">
-    <!-- As imagens do GitHub serão inseridas aqui via JS -->
-  </div>
-
-</div>
-
-<!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge"> 
-	<p class="w3-medium">Projeto "Cor de quem?</p>
-    <p class="w3-medium">Biblioteca Escolar — UME Prefeito Esmeraldo Tarquínio</p>
- 
-</footer>
+    <div class="container">
+        <a href="index.html" class="back-btn">
+            <i class="fa fa-arrow-left"></i> Voltar
+        </a>
+        
+        <header>
+            <h1>UME Esmeraldo Tarquínio em Tons</h1>
+            <p class="subtitle">Participe! Vamos celebrar nossa diversidade. As imagens se reorganizam automaticamente conforme o tamanho da tela.</p>
+        </header>
+        
+        <div class="photo-grid" id="photoGrid"></div>
+        
+        <footer>
+            <p>Projeto <b style="color:#ff8c00"> "Cor de quem?"</b></p>
+            <p>Biblioteca Escolar — UME Prefeito Esmeraldo Tarquínio</p>
+        </footer>
+    </div>
 
 <script>
-// Config GitHub
-const user = "anjomariscal";
-const repo = "Tons";
-const path = "uploads";
 
-// Função para embaralhar array
+// 🔀 Função para embaralhar array (Fisher–Yates)
 function shuffleArray(array) {
-  for (let i = array.length -1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
-// Carrega imagens do GitHub e insere no grid
-async function loadImages() {
+// Função para carregar imagens na galeria
+function loadImages(images) {
+    const grid = document.getElementById('photoGrid');
+    grid.innerHTML = '';
+
+    // 🔀 embaralha antes de exibir
+    shuffleArray(images);
+
+    images.forEach(image => {
+        const photoItem = document.createElement('div');
+        photoItem.className = 'photo-item';
+
+        const img = document.createElement('img');
+        img.src = image.src;
+        img.alt = 'Imagem da galeria';
+
+        photoItem.appendChild(img);
+        grid.appendChild(photoItem);
+    });
+}
+
+// 📌 Carregar imagens do GitHub
+async function loadImagesFromGitHub() {
+    const user = "anjomariscal";
+    const repo = "Tons";
+    const path = "uploads";
+    
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+
     try {
         const response = await fetch(url);
         const files = await response.json();
 
-        // Filtra apenas imagens
         const images = files
-            .filter(file => file.type === "file" && (file.name.endsWith(".png") || file.name.endsWith(".jpg")))
-            .map(file => file.download_url);
+            .filter(file =>
+                file.type === "file" &&
+                (file.name.toLowerCase().endsWith(".png") ||
+                 file.name.toLowerCase().endsWith(".jpg") ||
+                 file.name.toLowerCase().endsWith(".jpeg"))
+            )
+            .map(file => ({ src: file.download_url }));
 
-        // Embaralha
-        const shuffled = shuffleArray(images);
+        loadImages(images);
 
-        const grid = document.getElementById("photoGrid");
-        grid.innerHTML = "";
-
-        // Distribui em 3 colunas W3.CSS
-        const colCount = 3;
-        const cols = [];
-        for(let i=0;i<colCount;i++){ 
-            const div = document.createElement("div");
-            div.className = "w3-third";
-            cols.push(div);
-            grid.appendChild(div);
-        }
-
-        shuffled.forEach((src, index) => {
-            const img = document.createElement("img");
-            img.src = src;
-            img.alt = "imagem";
-            cols[index % colCount].appendChild(img);
-        });
-
-    } catch(err) {
+    } catch (err) {
         console.error(err);
-        alert("Erro ao carregar imagens da cartela.");
+        loadImages(sampleImages);
     }
 }
 
-loadImages();
+document.addEventListener('DOMContentLoaded', () => {
+    loadImagesFromGitHub();
+});
+
 </script>
 
 </body>
 </html>
-
-
