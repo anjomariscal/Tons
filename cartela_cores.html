@@ -5,22 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartela de Cores – Tons</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=WindSong:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: #E2D397;
             color: #333; line-height: 1.6;
             padding: 20px; min-height: 100vh;
         }
         .container { max-width: 1400px; margin: 0 auto; }
         header {
             text-align: center; margin-bottom: 40px; padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            background-color: #f2e9ca;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        h1 { color: #de28b6; margin-bottom: 10px; font-size: 2.5rem; }
+        h1 { color: #512f11; margin-bottom: 0px; font-size: 2.5rem; }
         .subtitle { color: #7f8c8d; font-size: 1.2rem; max-width: 800px; margin: 0 auto; }
         .photo-grid {
             display: grid;
@@ -31,7 +36,7 @@
         .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
         footer {
             text-align: center; padding: 20px; margin-top: 40px;
-            background: rgba(255, 255, 255, 0.8);
+             background-color: #f2e9ca;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
@@ -52,6 +57,29 @@
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
             .photo-item { height: 120px; }
         }
+		.windsong-medium {
+  font-family: "WindSong", cursive;
+  font-weight: 500;
+  font-style: normal;
+		font-size: 5rem;
+}
+
+.windsong-medium_2 {
+  font-family: "WindSong", cursive;
+  font-weight: 400;
+  font-style: normal;
+		font-size: 1.5rem;
+}
+
+.dosis {
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  		font-size: 3.5rem;
+
+}
+
     </style>
 </head>
 <body>
@@ -62,14 +90,14 @@
         </a>
         
         <header>
-            <h1>UME Esmeraldo Tarquínio em Tons</h1>
-            <p class="subtitle">Participe! Vamos celebrar nossa diversidade. As imagens se reorganizam automaticamente conforme o tamanho da tela.</p>
+            <h1> <span class="dosis">UME Esmeraldo Tarquínio em </span><b style="color:#ff8c00" class="windsong-medium"><i>Tons</i></b></h1>
+            <p class="subtitle" style="color:#333">Participe! Vamos celebrar nossa diversidade.</p>
         </header>
         
         <div class="photo-grid" id="photoGrid"></div>
         
         <footer>
-            <p>Projeto <b style="color:#ff8c00"> "Cor de quem?"</b></p>
+            <p>Projeto <b class="windsong-medium_2" style="color:#ff8c00"> "Cor de quem?"</b></p>
             <p>Biblioteca Escolar — UME Prefeito Esmeraldo Tarquínio</p>
         </footer>
     </div>
