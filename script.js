@@ -388,6 +388,8 @@ function retakePhoto() {
     captureBtn.style.display = "flex";
     retakeBtn.style.display = "none";
     downloadBtn.style.display = "none";
+	uploadGitHubBtn.style.display = "none";
+
 
     startCamera();
 }
