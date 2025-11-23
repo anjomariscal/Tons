@@ -99,10 +99,10 @@ body {
     overflow: hidden;
     border: 3px solid rgba(0,0,0,0.15);
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-	/*
+	
     width: 100%;          /* ocupa toda a largura disponível */
-    /*max-width: 320px;     /* opcional, para não ficar enorme */
-    /*aspect-ratio: 1 / 1;  /* mantém o vídeo QUADRADO (1:1) */
+    max-width: 320px;     /* opcional, para não ficar enorme */
+    aspect-ratio: 1 / 1;  /* mantém o vídeo QUADRADO (1:1) */
 	
 }
 
@@ -247,4 +247,5 @@ video, canvas {
         height: 85vw;
     }
 }
+
 
