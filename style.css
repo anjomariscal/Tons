@@ -86,18 +86,23 @@ body {
     border-radius: 16px;
     padding: 18px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
 }
 
 /* Preview */
 .preview-wrapper {
     position: relative;
-    width: 320px;
-    height: 320px;
+    /*width: 320px;
+    height: 320px;*/
     margin: 0 auto;
     border-radius: 12px;
     overflow: hidden;
     border: 3px solid rgba(0,0,0,0.15);
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+	
+    width: 100%;          /* ocupa toda a largura disponível */
+    max-width: 320px;     /* opcional, para não ficar enorme */
+    aspect-ratio: 1 / 1;  /* mantém o vídeo QUADRADO (1:1) */
 }
 
 video, canvas {
